@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Seguimiento de Personas</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --text: #1e293b; }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
+        h2 { text-align: center; color: var(--primary); }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 400px; }
+        th { padding: 12px; background: #f1f5f9; font-size: 0.8rem; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
+        input[type="text"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+        input[type="checkbox"] { transform: scale(1.2); cursor: pointer; }
+        .btn { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        #msg { text-align: center; color: #16a34a; margin-top: 10px; display: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Registro de Seguimiento</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:left">Nombre</th>
+                    <th>Orar</th>
+                    <th>Cont.</th>
+                    <th>Conf.</th>
+                    <th>Traer</th>
+                </tr>
+            </thead>
+            <tbody id="lista"></tbody>
+        </table>
+    </div>
+    <button class="btn" onclick="save()">Guardar en mi dispositivo</button>
+    <div id="msg">¡Datos guardados!</div>
+</div>
+<script>
+    const campos = ['orar', 'cont', 'conf', 'traer'];
+    const render = () => {
+        const tbody = document.getElementById('lista');
+        for(let i=1; i<=5; i++) {
+            tbody.innerHTML += `<tr>
+                <td><input type="text" id="n-${i}" placeholder="Nombre ${i}"></td>
+                ${campos.map(c => `<td><input type="checkbox" id="${c}-${i}"></td>`).join('')}
+            </tr>`;
+        }
+    };
+    function save() {
+        for(let i=1; i<=5; i++) {
+            localStorage.setItem('n-'+i, document.getElementById('n-'+i).value);
+            campos.forEach(c => localStorage.setItem(c+'-'+i, document.getElementById(c+'-'+i).checked));
+        }
+        document.getElementById('msg').style.display = 'block';
+        setTimeout(() => document.getElementById('msg').style.display = 'none', 2000);
+    }
+    window.onload = () => {
+        render();
+        for(let i=1; i<=5; i++) {
+            document.getElementById('n-'+i).value = localStorage.getItem('n-'+i) || '';
+            campos.forEach(c => document.getElementById(c+'-'+i).checked = localStorage.getItem(c+'-'+i) === 'true');
+        }
+    };
+</script>
+</body>
+</html>
