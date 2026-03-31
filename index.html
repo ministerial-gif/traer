@@ -45,7 +45,7 @@
     const campos = ['orar', 'contactar', 'confirmar', 'traer'];
     const render = () => {
         const tbody = document.getElementById('lista');
-        for(let i=1; i<=10; i++) {
+        for(let i=1; i<=5; i++) {
             tbody.innerHTML += `<tr>
                 <td><input type="text" id="n-${i}" placeholder="Nombre ${i}"></td>
                 ${campos.map(c => `<td><input type="checkbox" id="${c}-${i}"></td>`).join('')}
@@ -53,7 +53,7 @@
         }
     };
     function save() {
-        for(let i=1; i<=10; i++) {
+        for(let i=1; i<=5; i++) {
             localStorage.setItem('n-'+i, document.getElementById('n-'+i).value);
             campos.forEach(c => localStorage.setItem(c+'-'+i, document.getElementById(c+'-'+i).checked));
         }
@@ -62,7 +62,7 @@
     }
     window.onload = () => {
         render();
-        for(let i=1; i<=10; i++) {
+        for(let i=1; i<=5; i++) {
             document.getElementById('n-'+i).value = localStorage.getItem('n-'+i) || '';
             campos.forEach(c => document.getElementById(c+'-'+i).checked = localStorage.getItem(c+'-'+i) === 'true');
         }
