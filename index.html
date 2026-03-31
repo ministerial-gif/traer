@@ -53,7 +53,7 @@
         }
     };
     function save() {
-        for(let i=1; i<=5; i++) {
+        for(let i=1; i<=10; i++) {
             localStorage.setItem('n-'+i, document.getElementById('n-'+i).value);
             campos.forEach(c => localStorage.setItem(c+'-'+i, document.getElementById(c+'-'+i).checked));
         }
@@ -62,7 +62,7 @@
     }
     window.onload = () => {
         render();
-        for(let i=1; i<=5; i++) {
+        for(let i=1; i<=10; i++) {
             document.getElementById('n-'+i).value = localStorage.getItem('n-'+i) || '';
             campos.forEach(c => document.getElementById(c+'-'+i).checked = localStorage.getItem(c+'-'+i) === 'true');
         }
