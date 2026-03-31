@@ -45,7 +45,7 @@
     const campos = ['orar', 'contactar', 'confirmar', 'traer'];
     const render = () => {
         const tbody = document.getElementById('lista');
-        for(let i=1; i<=5; i++) {
+        for(let i=1; i<=10; i++) {
             tbody.innerHTML += `<tr>
                 <td><input type="text" id="n-${i}" placeholder="Nombre ${i}"></td>
                 ${campos.map(c => `<td><input type="checkbox" id="${c}-${i}"></td>`).join('')}
